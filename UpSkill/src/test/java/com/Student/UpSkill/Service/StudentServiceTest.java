@@ -27,8 +27,8 @@ public class StudentServiceTest {
     public void testGetAllStudents() {
 
         List<StudentEntities> mockStudents = Arrays.asList(
-                new StudentEntities(22, "John Doe", 55000.0),
-                new StudentEntities(25, "Jane Doe", 60000.0)
+                new StudentEntities(22, "Divyanshu", 55000.0),
+                new StudentEntities(25, "Divyanshu", 60000.0)
         );
 
 
@@ -39,8 +39,8 @@ public class StudentServiceTest {
 
 
         assertEquals(2, result.size());
-        assertEquals("John Doe", result.get(0).getName());
-        assertEquals("Jane Doe", result.get(1).getName());
+        assertEquals("Divyanshu", result.get(0).getName());
+        assertEquals("Divyanshu", result.get(1).getName());
 
 
         verify(studentService, times(1)).getAllStudents();
@@ -50,7 +50,7 @@ public class StudentServiceTest {
     public void testGetStudentById() {
 
         Long studentId = 1L;
-        StudentEntities mockStudent = new StudentEntities(22, "John Doe", 55000.0);
+        StudentEntities mockStudent = new StudentEntities(22, "Divyanshu", 55000.0);
         mockStudent.setId(studentId);
 
 
@@ -61,7 +61,7 @@ public class StudentServiceTest {
 
 
         assertNotNull(result);
-        assertEquals("John Doe", result.getName());
+        assertEquals("Divyanshu", result.getName());
 
 
         verify(studentService, times(1)).getStudentById(studentId);

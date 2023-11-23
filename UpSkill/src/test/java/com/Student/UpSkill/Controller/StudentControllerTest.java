@@ -8,8 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultMatcher;
+
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Arrays;
@@ -33,8 +32,8 @@ public class StudentControllerTest {
     public void testGetAllStudents() throws Exception {
 
         List<StudentEntities> mockStudents = Arrays.asList(
-                new StudentEntities(22, "John Doe", 55000.0),
-                new StudentEntities(25, "Jane Doe", 60000.0)
+                new StudentEntities(22, "Divyanshu", 55000.0),
+                new StudentEntities(25, "Divyanshu", 60000.0)
         );
 
         when(studentService.getAllStudents()).thenReturn(mockStudents);
@@ -53,7 +52,7 @@ public class StudentControllerTest {
     public void testGetStudentById() throws Exception {
 
         Long studentId = 1L;
-        StudentEntities mockStudent = new StudentEntities(22, "John Doe", 55000.0);
+        StudentEntities mockStudent = new StudentEntities(22, "Divyanshu", 55000.0);
         mockStudent.setId(studentId);
 
         when(studentService.getStudentById(studentId)).thenReturn(mockStudent);
@@ -63,7 +62,7 @@ public class StudentControllerTest {
         mockMvc.perform(get("/students/{id}", studentId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(studentId))
-                .andExpect(jsonPath("$.name").value("John Doe"));
+                .andExpect(jsonPath("$.name").value("Divyanshu"));
 
         verify(studentService, times(1)).getStudentById(studentId);
     }
@@ -71,7 +70,7 @@ public class StudentControllerTest {
     @Test
     public void testAddStudent() throws Exception {
 
-        StudentEntities newStudent = new StudentEntities(22, "John Doe", 55000.0);
+        StudentEntities newStudent = new StudentEntities(22, "Divyanshu", 55000.0);
 
         when(studentService.saveStudent(any())).thenReturn(newStudent);
 
@@ -81,7 +80,7 @@ public class StudentControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(newStudent)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.name").value("John Doe"));
+                .andExpect(jsonPath("$.name").value("Divyanshu"));
 
         verify(studentService, times(1)).saveStudent(any());
     }

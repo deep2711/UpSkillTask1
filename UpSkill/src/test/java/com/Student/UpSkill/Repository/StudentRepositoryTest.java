@@ -23,7 +23,7 @@ public class StudentRepositoryTest {
     @Test
     public void testSaveAndFindById() {
 
-        StudentEntities student = new StudentEntities(22, "John Doe", 55000.0);
+        StudentEntities student = new StudentEntities(22, "Divyanshu", 55000.0);
 
         StudentEntities savedStudent = studentRepository.save(student);
 
@@ -46,8 +46,8 @@ public class StudentRepositoryTest {
     @Test
     public void testFindAll() {
 
-        StudentEntities student1 = new StudentEntities(22, "John Doe", 55000.0);
-        StudentEntities student2 = new StudentEntities(25, "Jane Doe", 60000.0);
+        StudentEntities student1 = new StudentEntities(22, "Divyanshu", 55000.0);
+        StudentEntities student2 = new StudentEntities(25, "Divyanshu", 60000.0);
         entityManager.persist(student1);
         entityManager.persist(student2);
 
