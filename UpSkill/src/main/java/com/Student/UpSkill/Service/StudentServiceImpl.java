@@ -1,8 +1,8 @@
 package com.Student.UpSkill.service;
 
 import com.Student.UpSkill.Service.StudentService;
-import com.Student.UpSkill.entities.StudentEntities;
-import com.Student.UpSkill.repository.StudentRepository;
+import com.Student.UpSkill.Entities.StudentEntities;
+import com.Student.UpSkill.Repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,11 +28,10 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void saveStudent(StudentEntities student) {
-        studentRepository.save(student);
+    public StudentEntities saveStudent(StudentEntities student) {
+        return studentRepository.save(student);
 
     }
-
     @Override
     public void deleteStudent(Long id) {
         studentRepository.deleteById(id);

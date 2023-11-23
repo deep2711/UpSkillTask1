@@ -1,65 +1,61 @@
 package com.Student.UpSkill.Controller;
 
-import com.Student.UpSkill.entities.StudentEntities;
+import com.Student.UpSkill.Entities.StudentEntities;
 import com.Student.UpSkill.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 @Controller
 @RequestMapping("/students")
 public class StudentController {
-
+    private static final Logger logger = LoggerFactory.getLogger(StudentController.class);
     @Autowired
     private StudentService studentService;
 
     @GetMapping("/all")
-    public String getAllStudents(Model model) {
+    public ResponseEntity<List<StudentEntities>> getAllStudents() {
+        logger.info("Fetching all students");
         List<StudentEntities> students = studentService.getAllStudents();
-        model.addAttribute("students", students);
-        return "studentList";
+        logger.debug("Number of students fetched: {}", students.size());
+        return new ResponseEntity<>(students, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public String getStudentById(@PathVariable Long id, Model model) {
+    public ResponseEntity<StudentEntities> getStudentById(@PathVariable Long id) {
+        logger.info("Fetching student with id: {}", id);
         StudentEntities student = studentService.getStudentById(id);
-        model.addAttribute("student", student);
-        return "studentDetails";
+        if (student != null) {
+            logger.info("Found student: {}", student);
+            return new ResponseEntity<>(student, HttpStatus.OK);
+        } else {
+            logger.warn("Student with id {} not found", id);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    @GetMapping("/add")
-    public String showAddForm(Model model) {
-        model.addAttribute("student", new StudentEntities());
-        return "addStudent";
-    }
 
     @PostMapping("/add")
-    public String addStudent(@ModelAttribute("student") StudentEntities student) {
-        studentService.saveStudent(student);
-        return "redirect:/students/all";
+    public ResponseEntity<StudentEntities> addStudent(@RequestBody StudentEntities student) {
+        logger.info("Adding new student: {}", student);
+        StudentEntities createdStudent = studentService.saveStudent(student);
+        logger.info("Student added successfully: {}", createdStudent);
+        return new ResponseEntity<>(createdStudent, HttpStatus.CREATED);
     }
 
-    @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable Long id, Model model) {
-        StudentEntities student = studentService.getStudentById(id);
-        model.addAttribute("student", student);
-        return "editStudent";
-    }
 
-    @PostMapping("/edit/{id}")
-    public String editStudent(@PathVariable Long id, @ModelAttribute("student") StudentEntities student) {
-        student.setId(id);
-        studentService.saveStudent(student);
-        return "redirect:/students/all";
-    }
 
-    @GetMapping("/delete/{id}")
-    public String deleteStudent(@PathVariable Long id) {
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
+        logger.info("Deleting student with id: {}", id);
         studentService.deleteStudent(id);
-        return "redirect:/students/all";
+        logger.info("Student deleted successfully");
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
-//Done

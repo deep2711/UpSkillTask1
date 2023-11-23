@@ -1,6 +1,6 @@
-package com.Student.UpSkill.repository;
+package com.Student.UpSkill.Repository;
 
-import com.Student.UpSkill.entities.StudentEntities;
+import com.Student.UpSkill.Entities.StudentEntities;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

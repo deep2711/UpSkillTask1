@@ -1,4 +1,4 @@
-package com.Student.UpSkill.entities;
+package com.Student.UpSkill.Entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,9 +16,8 @@ public class StudentEntities {
     private String name;
     private double salary;
 
-    // Constructors
     public StudentEntities() {
-        // Default constructor
+
     }
 
     public StudentEntities(int age, String name, double salary) {
@@ -27,7 +26,6 @@ public class StudentEntities {
         this.salary = salary;
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -60,7 +58,6 @@ public class StudentEntities {
         this.salary = salary;
     }
 
-    // toString method
     @Override
     public String toString() {
         return "StudentEntities [id=" + id + ", age=" + age + ", name=" + name + ", salary=" + salary + "]";
